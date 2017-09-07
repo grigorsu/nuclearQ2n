@@ -1,0 +1,18 @@
+01STATUS                ready   100    
+02TASK                   ls    pwd    
+03IS_POTENTIAL_LAST      1    
+04IS_PROBABILITY_LAST    1
+05IS_NOT_SHPERICAL_LAST  1    
+06EXPRIMENT              0
+
+EXAMPLE_01STATUS    ready    potential_run    probability_run  not_spherical_run    set_default_conf.INP.txt    set_new_conf.INP.txt    stop    70%    
+EXAMPLE_01STATUS    experiment.load.default  experiment.save.current  experiment.load  experiment.delete  
+EXAMPLE_02TASK      ls    pwd    stop    plot    potential    probability    
+
+EXAMPLE_03IS_POTENTIAL_LAST      0    -    true    1    -    false    
+EXAMPLE_04IS_PROBABILITY_LAST    0    -    true    1    -    false    
+EXAMPLE_05IS_NOT_SHPERICAL_LAST  0    -    true    1    -    false    
+EXAMPLE_06EXPRIMENT   0 - number of experiment
+
+
+

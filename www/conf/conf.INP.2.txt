@@ -1,0 +1,107 @@
+Z1   20
+Z2   92
+e             1.2 
+A1   42
+A2   236
+k             0.024                  
+
+Element1   Ca
+Element2   U
+reaction   42Ca+U236
+beta1   0.247
+beta2   0.282
+m1   -38547.2
+m2   42446.5
+
+Q   8.56345
+E2   1.525
+A1_new          nan
+A2_new          nan
+m1_new          nan
+m2_new          nan
+beta1_new       nan
+beta2_new       nan
+d1_new          nan
+d2_new          nan
+Element1_new    nan
+Element2_new    nan
+reaction_new    nan
+is_Q2_channel   yes
+
+
+d1   0.55
+d2   0.56
+
+r0      1.150 
+ro0     0.17  
+
+gamma   24.0
+lambda           nan
+epsilon          nan
+T                0.7                
+tlim             6.0                
+q0               nan
+p0               nan
+Lp               2.0015             
+omega            nan
+rrbarer          0.5
+rrS              1.1
+
+//potential for L=0:
+
+R      nan
+En     nan
+//potential properties:
+
+Lmax         nan
+xMin         nan 
+xBar         nan 
+UMin         nan
+UBar         nan
+
+sigma_sp         nan
+sigma_d          nan
+Esp              nan
+Ed               nan
+pelss            nan
+
+
+val_A_1   22Ne+238U
+val_D_3   -0.10
+val_E_1   0.00001
+val_E_2   30.0
+val_E_3   0.001
+val_E_4   0.00001
+val_F_1   34
+val_G_1   1
+val_G_2   1
+val_H_1   0.000
+val_H_2   3.140
+val_H_3   0.0000
+val_H_4   0.0000
+val_H_5   0.001
+val_I_1   0.00
+val_I_2   0.00
+val_I_3   0.
+val_J_1   0.440
+val_J_2   3.00
+val_J_3   0.450
+val_K_1   300.00
+val_K_2   0.09
+val_K_3   0.42
+val_K_4   -2.59
+val_K_5   0.54
+val_L_1   0.55
+val_L_2   0.99
+val_L_3   0.56
+val_L_4   1.00
+val_M_1   0.59
+val_M_2   1.02
+val_M_3   0.60
+val_M_4   1.11
+val_N_1   HEU.DAT
+
+HEU.DAT  /vagrant/www/www3/p/nuclear/users/nuser//conf/HEU.DAT
+
+
+

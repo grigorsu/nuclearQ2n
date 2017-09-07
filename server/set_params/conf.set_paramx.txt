@@ -1,0 +1,87 @@
+Z1   20   ./img/formulas/Z1.PNG   6   VISIBLE   not_default   -   charge   for   one   nucleus
+Z2   70   ./img/formulas/Z2.PNG   6   VISIBLE   not_default   -   charge   for   another   nucleus
+e       1.2                               INVISIBLE - constant
+
+A1   050.00   ./img/formulas/A1.PNG   6   VISIBLE  default
+A2   170      ./img/formulas/A2.PNG   6   VISIBLE   not_default
+k       0.024                  
+
+Element1     Ca         
+Element2     Yb         
+reaction     50  Ca+Yb 170
+beta1     0          
+beta2     0.326      
+m1     -39589.2   
+m2     -60764.7   
+
+
+Q     3127.06    
+E2     79         
+A_1_new   nan
+A_2_new   nan
+m1_new     -44224.8   
+m2_new     -59256.2   
+
+d1     0.55  ./img/formulas/d1.PNG  9  INVISIBLE  default
+d2     0.55  ./img/formulas/d2.PNG  8  INVISIBLE  default
+
+r0      1.150        ./img/formulas/r0.PNG   5
+ro0     0.17         ./img/formulas/ro0.PNG  4
+
+Ein     120.   ./img/formulas/Ein.PNG        4          INVISIBLE
+Efrom   126.   ./img/formulas/Efrom.PNG   4   VISIBLE
+Eto   188   ./img/formulas/Eto.PNG   4   VISIBLE
+Estep   1   ./img/formulas/Estep.PNG   4   VISIBLE
+
+gamma       12.                 ./img/formulas/gamma.PNG      3
+lambda      0.2703258983123     ./img/formulas/lambda.PNG    16
+epsilon     2.836329087843667   ./img/formulas/epsilon.PNG   18
+T           0.7                 ./img/formulas/T.PNG          4     
+tlim        6.0                 ./img/formulas/tlim.PNG       4 
+q0          0.                  ./img/formulas/q0.PNG         8
+p0          0.                  ./img/formulas/p0.PNG         8
+Lp          2.0015              ./img/formulas/Lp.PNG         6
+omega   3.17538
+rrbarer     0.5
+rrS         1.1
+
+/nanval_A_1   22Ne+238U
+val_D_3   -0.10
+val_E_1   0.00001
+val_E_2   30.0
+val_E_3   0.001
+val_E_4   0.00001
+val_F_1   34
+val_G_1   1
+val_G_2   1
+val_H_1   0.000
+val_H_2   3.140
+val_H_3   0.0000
+val_H_4   0.0000
+val_H_5   0.001
+val_I_1   0.00
+val_I_2   0.00
+val_I_3   0.
+val_J_1   0.440
+val_J_2   3.00
+val_J_3   0.450
+val_K_1   300.00
+val_K_2   0.09
+val_K_3   0.42
+val_K_4   -2.59
+val_K_5   0.54
+val_L_1   0.55
+val_L_2   0.99
+val_L_3   0.56
+val_L_4   1.00
+val_M_1   0.59
+val_M_2   1.02
+val_M_3   0.60
+val_M_4   1.11
+val_N_1   HEU.DAT
+
+HEU.DAT  ./51V154Sm.DAT
+R   9.93  10.13  10.33  10.53  10.73  10.93  11.13  11.33  11.53  11.73  11.93  12.13  12.33  12.53  12.73  12.93  13.13  13.33  13.53  13.73  13.93  14.13  14.33  14.53  14.73  16.0  17.0  18.0  19.0  20.0  21.0  22.0  23.0  24.0  25.0  30.0  35.0  40.0
+En  175.9852  164.2017  156.5616  152.1476  150.1098  149.6991  150.2887  151.3823  152.6109  153.7202  154.5526  155.0265  155.1157  154.8318  154.2093  153.2945  152.1377  150.7879  149.2899  147.6829  146.0000  144.2682  142.5093  140.7404  138.9745  128.34  120.791  114.08  108.076  102.672  97.7829  93.3382  89.28  85.56  82.1376  68.448  58.6697  51.336
+
+

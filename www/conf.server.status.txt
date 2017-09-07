@@ -1,0 +1,42 @@
+01STATUS              ready    100    
+02TASK                   ls    pwd        
+03IS_POTENTIAL_LAST      0    
+04IS_PROBABILITY_LAST    0    
+05IS_NOT_SHPERICAL_LAST  0    
+06EXPRIMENT              0    
+07REFRESH                1    
+08IS_CHANGE_VARS         0    
+09STEP                   1    
+SCRIPT_MESSAGE   None     
+10MESSAGE     None     
+10MESSAGE01   None   
+10MESSAGE02   None     
+COMMAND       None     
+SESSION       open
+TIME          0
+
+
+EXAMPLE_01STATUS    ready    potential_run    probability_run  not_spherical_run    set_default_conf.INP.txt    set_new_conf.INP.txt    stop    70%       
+EXAMPLE_02TASK      ls    pwd    stop    plot    potential    probability       
+EXAMPLE_03IS_POTENTIAL_LAST      0    -    true    1    -    false       
+EXAMPLE_04IS_PROBABILITY_LAST    0    -    true    1    -    false       
+EXAMPLE_05IS_NOT_SHPERICAL_LAST  0    -    true    1    -    false       
+EXAMPLE_06EXPRIMENT   0 - number of experiment   
+EXAMPLE_07REFRESH     4   
+EXAMPLE_08IS_CHANGE_VARS         0    -    true    1    -    false                       
+EXAMPLE_09STEP  1 - A1 A2 Z1 Z2 [d1,d2], 2 - Efrom, Eto, Estep[beta1,beta2], 3 - P,sigma,sigma_d, 4 - result, 0 - run     
+EXAMPLE 10MESSAGE   None   Note:_Estep_should_be_in_the_range_[0.1,10].   
+EXAMPLE_COMMAND     None  stop - stop script   
+
+   
+
+
+
+
+
+
+
+
+
+
+
