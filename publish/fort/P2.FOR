@@ -50,8 +50,13 @@ C.........................................................
         SB2F=1.02      
         SB2Q=0.60     
         SB2FQ=1.11
-
-C
+        CHARACTER*40 :: args
+C         INTEGER :: iii
+C         iii = 0
+C         HARACTER(len=32) :: ss
+        CALL getarg(0, args)
+C         WRITE (*,*) trim(arg) // 'INP.DAT'
+C         ss = trim(arg) // 'INP.DAT'
         OPEN (5,FILE='INP.DAT',STATUS='OLD')
          READ (5,15) STRING
          READ (5,10) A1,A2,Z1,Z2
