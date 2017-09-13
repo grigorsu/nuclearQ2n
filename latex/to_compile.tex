@@ -541,21 +541,18 @@ mkdir -p R conf
                      -o ./conf/conf.0.txt  -f INP.DAT -q yes
     \end{verbatim}  
 Here is the output:     
-    \begin{verbatim}
-Ca[A=40, Z=20] m: -34846.4  beta: 0     d: 0.55 beta[2+]: 0.12 E[2+]: 3.90
-Ar[A=40, Z=18] m: -35039.9  beta: 0.251 d: 0.55 beta[2+]: 0.25 E[2+]: 1.46
-   
+\begin{verbatim}
+Ca[A=40, Z=20] m: -34846.4  beta: 0     d: 0.55 beta[2+]: 0.12 ...
+Ar[A=40, Z=18] m: -35039.9  beta: 0.251 d: 0.55 beta[2+]: 0.25 ...
   Q: 3.37578  MeV E[2+]:   1.525MeV
-Ca[A=42, Z=20] m: -38547.2  beta: 0.247 d: 0.55 beta[2+]: 0.25 E[2+]: 1.52
-Ar[A=38, Z=18] m: -34714.8  beta: 0.163 d: 0.55 beta[2+]: 0.16 E[2+]: 2.18
-   
+Ca[A=42, Z=20] m: -38547.2  beta: 0.247 d: 0.55 beta[2+]: 0.25 ...
+Ar[A=38, Z=18] m: -34714.8  beta: 0.163 d: 0.55 beta[2+]: 0.16 ...
   Q: -13.4048  MeV  E[2+]:   1.208MeV
-Ca[A=38, Z=20] m: -22058.5  beta: 0     d: 0.55 beta[2+]: 0.12 E[2+]: 2.21
-Ar[A=42, Z=18] m: -34423    beta: 0.275 d: 0.55 beta[2+]: 0.27 E[2+]: 1.21
-   
+Ca[A=38, Z=20] m: -22058.5  beta: 0     d: 0.55 beta[2+]: 0.12 ...
+Ar[A=42, Z=18] m: -34423    beta: 0.275 d: 0.55 beta[2+]: 0.27 ...
    Q2n channel found: Q: 3.37578 E[2+]: 1.525
-Ca[A=42, Z=20] m: -38547.2  beta: 0.247 d: 0.55 beta[2+]: 0.25 E[2+]: 1.52
-Ar[A=38, Z=18] m: -34714.8  beta: 0.163 d: 0.55 beta[2+]: 0.16 E[2+]: 2.17
+Ca[A=42, Z=20] m: -38547.2  beta: 0.247 d: 0.55 beta[2+]: 0.25 ...
+Ar[A=38, Z=18] m: -34714.8  beta: 0.163 d: 0.55 beta[2+]: 0.16 ...
 
     \end{verbatim}  
     \end{description}
@@ -642,7 +639,8 @@ Ar[A=38, Z=18] m: -34714.8  beta: 0.163 d: 0.55 beta[2+]: 0.16 E[2+]: 2.17
     \begin{description}
        \item[Compile]:  
         \begin{verbatim}
-g++ kinematics.cc -std=c++11 -lgsl -lgslcblas -lm -o kinematics.exe
+g++ kinematics.cc -std=c++11 -lgsl -lgslcblas -lm \
+                  -o kinematics.exe
         \end{verbatim}
        \item[Run]:
         \begin{verbatim}
