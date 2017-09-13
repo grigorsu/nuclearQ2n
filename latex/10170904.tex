@@ -481,7 +481,7 @@ of programs previously published in the CPC Program Library.\\
   
   \begin{itemize}
     \setlength\itemsep{0em}
-    \item[bin/]    - The program consist of five scripts from this folder: settings.exe, fort.exe, makeplot.exe, kinematics.exe, pcapture.exe. File fort.exe is compiled from files that are in the folder \textit{nuclear/fort}/ Another files are compiled from files with coresponding names in the folder \textit{nuclear/source} (see below the details about how they are compiled). There is friendly user interface on webpage: \textit{http://intel-robot.ru/external/www5}.
+    \item[bin/]    - The program consist of five scripts from this folder: settings.exe, fort.exe, makeplot.exe, kinematics.exe, pcapture.exe. File fort.exe is compiled from files that are in the folder \textit{nuclear/fort}/ Another files are compiled from files with coresponding names in the folder \textit{nuclear/source} (see below the details about how they are compiled). There is a friendly user interface on webpage Ref.~\cite{WebInterface}. 
     \item[conf/]   - contains config files. One of them is isotopes.table.txt. This file is used to define nuclear properties (mass, quadrupole deformation parameters $\beta$, .. ) by charge $Z$ and weight $A$. Here is its part:
 \begin{verbatim}
  Z    A        m   Element   BETA_GS   BETA_2+ E_2+(MeV)
@@ -509,16 +509,17 @@ of programs previously published in the CPC Program Library.\\
 g++ makeplot.cc -o ../bin/makeplot.exe
 
         \end{verbatim}
-       \item[Run] from the folder \textit{nuclear/bin]:
+       \item[Run] from the folder \textit{nuclear/bin}:
         \begin{verbatim}
 mkdir -p R conf 
-./settings.exe -A1 number -A2 number -Z1 number -Z2 number \
-              [-print console|conf] [-o ../conf/conf.0.txt] [-t ../conf/isotopes.table.txt]
+./settings.exe -A1 number -A2 number -Z1 number -Z2 number  \
+              [-print console|conf] [-o ../conf/conf.0.txt] \
+              [-t ../conf/isotopes.table.txt] \
               [-f ../bin/INP.DAT]
 ./settings.exe -h
         \end{verbatim}
           \begin{center}
-              \begin{tabular}{ | l | p{12cm} |}
+              \begin{tabular}{ | l | p{10cm} |}
               \hline
               -print console   & print to the console the details about the Elements with corresponding weights A1, A2 and charges  Z1, Z2 \\ \hline
               -print conf      & print all output configurations   \\ \hline
@@ -574,24 +575,31 @@ Ar[A=38, Z=18] m: -34714.8  beta: 0.163 d: 0.55 beta[2+]: 0.16 E[2+]: 2.17
            read nuclear properties from INP.DAT \textbf{in the same directory} as where fort.exe runs and generate CaAr.DAT file in this directory.
            
     \end{description}
-       Here is the example for 42Ca+Ar38 with weighs 42, 38, charges 20, 18, diffuseness 0.55 size charachteristics - R0,RO00 and output file
+       Here is the example for 42Ca+Ar38 with weighs 42, 38; charges 20, 18; diffuseness 0.55; size charachteristics - 1.15, 0.17.
       INP.DAT sample:
     \begin{verbatim}
-      42Ca+Ar38
+      42Ca+38Ar
       042.00    038.00     020.00    018.00
       0.5500111    0.550111
       1.150     0.17        -0.10
       CaAr.DAT
     \end{verbatim}  
-      CaAr.DAT sample:
+    After puttins the file INP.DAT to the folder with fotr.exe script and running this script there will be the output file CaAr.DAT:
     \begin{verbatim}
-   7.36     70.3962    -28.0677     42.3286      0.0000
-   7.56     68.5376    -33.5095     35.0281      0.0000 
-    ... 
+42Ca+38Ar                                                                       
+   A1  =   42.000000000000000       A2 =    38.000000000000000     
+   R0  =    1.1499999999999999       RO00 =   0.17000000000000001     
+   R1  =    3.9974254467042085       R2 =    3.8662668278928320     
+   A01  =   0.55001109999999998       A02 =   0.55010999999999999     
+
+   R_z        V_C         V_N          V
+   7.36     70.3962    -28.0677     42.3286
+   7.56     68.5376    -33.5095     35.0281
+   ...       ...         ...         ...
+  12.16     42.6187     -0.3737     42.2449
     \end{verbatim}  
 
   \subsection{makeplot.exe}
-
   \label{sec:makeplot}
    %   # read potential from CaAr.DAT and write it to ./conf/conf.1.txt
     \begin{description}
@@ -786,6 +794,7 @@ sigma_d    0.15987        0.54109   1.43882      ...
   \bibitem{Szilner}   S. Szilner, {\it at al}, Phys. Rev. C {\bf 76}, 024604 (2007); 84, 014325 (2011);
                       L. Corradi, {\it at al}, ibid. {\bf 84}, 034603 (2011).
   \bibitem{Raman}     S. Raman, C.W. Nestor Jr., and P. Tikkanen, At. Data Nucl. Data Tables {\bf 78}, 1 (2001).
+  \bibitem{WebInterface}  http://intel-robot.ru/external/www5
 
 \end{thebibliography}
 

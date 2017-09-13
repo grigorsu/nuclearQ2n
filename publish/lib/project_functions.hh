@@ -187,37 +187,6 @@ gConf nuclear::make_default_conf() {
   conf.add(  "pelss              nan"                            );
   
   conf.add(  "val_D_3            -0.10"                          );
-  conf.add(  "val_E_1            0.00001"                        );
-  conf.add(  "val_E_2            30.0"                           );
-  conf.add(  "val_E_3            0.001"                          );
-  conf.add(  "val_E_4            0.00001"                        );
-  conf.add(  "val_F_1            34"                             );
-  conf.add(  "val_G_1            1"                              );
-  conf.add(  "val_G_2            1"                              );
-  conf.add(  "val_H_1            0.000"                          );
-  conf.add(  "val_H_2            3.140"                          );
-  conf.add(  "val_H_3            0.0000"                         );
-  conf.add(  "val_H_4            0.0000"                         );
-  conf.add(  "val_H_5            0.001"                          );
-  conf.add(  "val_I_1            0.00"                           );
-  conf.add(  "val_I_2            0.00"                           );
-  conf.add(  "val_I_3            0."                             );
-  conf.add(  "val_J_1            0.440"                          );
-  conf.add(  "val_J_2            3.00"                           );
-  conf.add(  "val_J_3            0.450"                          );
-  conf.add(  "val_K_1            300.00"                         );
-  conf.add(  "val_K_2            0.09"                           );
-  conf.add(  "val_K_3            0.42"                           );
-  conf.add(  "val_K_4            -2.59"                          );
-  conf.add(  "val_K_5            0.54"                           );
-  conf.add(  "val_L_1            0.55"                           );
-  conf.add(  "val_L_2            0.99"                           );
-  conf.add(  "val_L_3            0.56"                           );
-  conf.add(  "val_L_4            1.00"                           );
-  conf.add(  "val_M_1            0.59"                           );
-  conf.add(  "val_M_2            1.02"                           );
-  conf.add(  "val_M_3            0.60"                           );
-  conf.add(  "val_M_4            1.11"                           );
   conf.add(  "FORT.DAT            nan"                );
   return conf;
 }
@@ -257,7 +226,12 @@ gConf nuclear::set_params(gConf &_conf_args) {
     float Q  = NAN;
     float E2 = NAN;
 
-    if(XX.exist  && YY.exist) {
+    if(  (  XX.Z * YY.Z  < 150) || ( 2500 < XX.Z * YY.Z) ) {
+      conf.change("message",    "Z1 * Z2 should be in the range: 150 <= Z1 * Z2 <= 2500 ");
+      std::string message01 = "Z1 * Z2 should be in the range: 150 <= Z1 * Z2 <= 2500 " ;
+      if(_conf_args.is_present("-print") && _conf_args.get("-print") == "console") 
+        std::cout << gFile.vs2s(conf.get_all("message"), " ") << std::endl  << std::endl;     
+    } else if(XX.exist  && YY.exist) {
       if(_conf_args.is_present("-print") && _conf_args.get("-print") == "console" ) {
         std::cout << std::endl;
         XX.print();
@@ -306,6 +280,7 @@ gConf nuclear::set_params(gConf &_conf_args) {
       conf.change( "d2"              ,     gFile.format_to_str(YY.d          ,10,"right") ) ;
       std::string reaction = gFile.format_to_str(XX.A,3,"right") + XX.Element + "+" + YY.Element + gFile.format_to_str(YY.A,3,"left");
       conf.change( "reaction",  reaction    ) ;
+
       if(new_X != NULL) {
         if(_conf_args.is_present("-print") && _conf_args.get("-print") == "console" ) {
           std::cout << std::endl <<" Q2n channel found: Q: " << Q << " E[2+]: " << E2 << std::endl;
@@ -364,37 +339,6 @@ void nuclear::write_fort(gConf &_conf, std::string filename) {
   sprintf( buffer,              "%.3f",     _conf.getf("r0"         )           ); content += buffer; //   1.150
   sprintf( buffer,         "     %.2f",     _conf.getf("ro0"        )           ); content += buffer; //   0.17
   sprintf( buffer,    "        %.2f\n",     _conf.getf("val_D_3"    )           ); content += buffer; //   -0.10
-  sprintf( buffer,              "%.5f",     _conf.getf("val_E_1"    )           ); content += buffer; //   0.00001
-  sprintf( buffer,          "    %.1f",     _conf.getf("val_E_2"    )           ); content += buffer; //   30.0
-  sprintf( buffer,        "      %.3f",     _conf.getf("val_E_3"    )           ); content += buffer; //   0.001
-  sprintf( buffer,        "    %.5f\n",     _conf.getf("val_E_4"    )           ); content += buffer; //   0.00001
-  sprintf( buffer,             " %d\n",(int)_conf.getf("val_F_1"    )           ); content += buffer; //   34
-  sprintf( buffer,              "  %d",(int)_conf.getf("val_G_1"    )           ); content += buffer; //   1
-  sprintf( buffer,         "     %d\n",(int)_conf.getf("val_G_2"    )           ); content += buffer; //   1
-  sprintf( buffer,              "%.3f",     _conf.getf("val_H_1"    )           ); content += buffer; //   0.000
-  sprintf( buffer,       "       %.3f",     _conf.getf("val_H_2"    )           ); content += buffer; //   3.140
-  sprintf( buffer,        "      %.4f",     _conf.getf("val_H_3"    )           ); content += buffer; //   0.0000
-  sprintf( buffer,          "    %.4f",     _conf.getf("val_H_4"    )           ); content += buffer; //   0.0000
-  sprintf( buffer,       "     %.3f\n",     _conf.getf("val_H_5"    )           ); content += buffer; //   0.001
-  sprintf( buffer,              "%.2f",     _conf.getf("val_I_1"    )           ); content += buffer; //   0.00
-  sprintf( buffer,      "        %.2f",     _conf.getf("val_I_2"    )           ); content += buffer; //   0.00
-  sprintf( buffer, "            %d.\n",(int)_conf.getf("val_I_3"    )           ); content += buffer; //   0.
-  sprintf( buffer,              "%.3f",     _conf.getf("val_J_1"    )           ); content += buffer; //   0.440
-  sprintf( buffer,       "       %.2f",     _conf.getf("val_J_2"    )           ); content += buffer; //   3.00
-  sprintf( buffer,    "        %.3f\n",     _conf.getf("val_J_3"    )           ); content += buffer; //   0.450
-  sprintf( buffer,              "%.2f",     _conf.getf("val_K_1"    )           ); content += buffer; //   300.00
-  sprintf( buffer,         "     %.2f",     _conf.getf("val_K_2"    )           ); content += buffer; //   0.09
-  sprintf( buffer,        "      %.2f",     _conf.getf("val_K_3"    )           ); content += buffer; //   0.42
-  sprintf( buffer,       "       %.2f",     _conf.getf("val_K_4"    )           ); content += buffer; //   -2.59
-  sprintf( buffer,       "     %.2f\n",     _conf.getf("val_K_5"    )           ); content += buffer; //   0.54
-  sprintf( buffer,        "      %.2f",     _conf.getf("val_L_1"    )           ); content += buffer; //   0.55
-  sprintf( buffer,        "      %.2f",     _conf.getf("val_L_2"    )           ); content += buffer; //   0.99
-  sprintf( buffer,        "      %.2f",     _conf.getf("val_L_3"    )           ); content += buffer; //   0.56
-  sprintf( buffer,       "     %.2f\n",     _conf.getf("val_L_4"    )           ); content += buffer; //   1.00
-  sprintf( buffer,        "      %.2f",     _conf.getf("val_M_1"    )           ); content += buffer; //   0.59
-  sprintf( buffer,        "      %.2f",     _conf.getf("val_M_2"    )           ); content += buffer; //   1.02
-  sprintf( buffer,        "      %.2f",     _conf.getf("val_M_3"    )           ); content += buffer; //   0.60
-  sprintf( buffer,       "     %.2f\n",     _conf.getf("val_M_4"    )           ); content += buffer; //   1.11
   sprintf( buffer,                "%s",     _conf.get( "FORT.DAT").c_str()      ); content += buffer; //  "HEU.DAT"
   gFile.write_file(content, filename );
 };

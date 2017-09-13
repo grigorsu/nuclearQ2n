@@ -147,7 +147,16 @@ int main(int argc, char** argv) {
   float Q  = NAN;
   float E2 = NAN;
 
-  if(XX.exist  && YY.exist) {
+  if(  (  XX.Z * YY.Z  < 150) || ( 2500 < XX.Z * YY.Z) ) {
+    logger(conf_args, "Z1_*_Z2_should_be_in_the_range:_150_<=_Z1_*_Z2_<=_2500", "10MESSAGE");
+    logger(conf_args, "01", "09STEP");
+    std::string message01 = "Z1_*_Z2_should_be_in_the_range:_150_<=_Z1_*_Z2_<=_2500" ;
+    ERROR("Please try another Z1 and Z2")
+    ERROR(gFile.replace(gFile.replace(message01,"<br>","\n"),"_"," "))
+    logger(conf_args, message01 , "10MESSAGE01");
+    logger(conf_args, "Please_try_another_Z1_and_Z2", "10MESSAGE02");
+
+  } else if(XX.exist  && YY.exist) {
     XX.print();
     YY.print();
     if( X1.exist  && Y1.exist ) {

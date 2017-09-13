@@ -152,7 +152,11 @@ int main(int argc, char** argv) {
   float Q  = NAN;
   float E2 = NAN;
 
-  if(XX.exist  && YY.exist) {
+
+  if(  (  XX.Z * YY.Z  < 150) || ( 2500 < XX.Z * YY.Z) ) {
+    conf.change("message",    "Please_try_another_Z1_and_Z2");
+    conf.change("message01" , "Z1_*_Z2_should_be_in_the_range:_150_<=_Z1_*_Z2_<=_2500");
+  } else if(XX.exist  && YY.exist) {
     if(conf_args.is_present("-print") && conf_args.get("-print") == "console" ) {
       XX.print();
       YY.print();
@@ -227,22 +231,13 @@ int main(int argc, char** argv) {
     }    
     // if(conf_args.is_present("-o")) conf.save(conf_args.get("-o"));
   } else {
-    // std::string message = "nan";
     conf.change("message",    "undefined_isotopes,_please_try_another_one");
-    // logger(conf_args, "undefined_isotopes,_please_try_another_one", "10MESSAGE");
-    // logger(conf_args, "01", "09STEP");
-
-
     std::string message01 = "" ;
     if(!XX.exist)  message01 = message01 + "<br>for_A_=_"+gFile.to_str(XX.A)+"_select_Z_from_{_" +gFile.vs2s(XX.Z_alternative,"_")+ "_}_" 
                           + "<br>for_Z_=_"+gFile.to_str(XX.Z)+"_select_A_from_{_" +gFile.vs2s(XX.A_alternative,"_")+ "_}_";
     if(!YY.exist)  message01 = message01 + "<br>for_A_=_"+gFile.to_str(YY.A)+"_select_Z_from_{_" +gFile.vs2s(YY.Z_alternative,"_")+ "_}_" 
                           + "<br>for_Z_=_"+gFile.to_str(YY.Z)+"_select_A_from_{_" +gFile.vs2s(YY.A_alternative,"_")+ "_}_"; 
-    // ERROR("undefined isotopes, please try another one")
-    // ERROR(gFile.replace(gFile.replace(message01,"<br>","\n"),"_"," "))
     conf.change("message01" , message01);
-    // logger(conf_args, message01 , "10MESSAGE01");
-    // logger(conf_args, "undefined_isotopes,_please_try_another_one", "10MESSAGE02");
   }
 
   if(conf_args.is_present("-print") && conf_args.get("-print") == "conf"  ) conf.print();  
