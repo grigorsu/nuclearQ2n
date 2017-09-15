@@ -136,8 +136,8 @@ of programs previously published in the CPC Program Library.\\
  
 
   \begin{eqnarray}
-  \sigma_{\rm cap}(E_{\rm c.m.})&=&\sum_{L}^{}\sigma_{\rm cap}(E_{\rm c.m.},L)\nonumber\\
-  &=&\pi\lambdabar^2 \sum_{L}(2L+1)\int_0^{\pi/2}d\theta_1\sin(\theta_1)\int_0^{\pi/2}d\theta_2\sin(\theta_2)P_{\rm cap}\left(E_{\rm c.m.},L,\theta_1,\theta_2\right)
+  &&\sigma_{\rm cap}(E_{\rm c.m.})=\sum_{L}^{}\sigma_{\rm cap}(E_{\rm c.m.},L)=\pi\lambdabar^2 \sum_{L}(2L+1)  \nonumber\\
+   &\times&  \int_0^{\pi/2}d\theta_1\sin(\theta_1)\int_0^{\pi/2}d\theta_2\sin(\theta_2)P_{\rm cap}\left(E_{\rm c.m.},L,\theta_1,\theta_2\right)
   \label{1a_eq}
   \end{eqnarray}
 
@@ -232,7 +232,7 @@ of programs previously published in the CPC Program Library.\\
   The Coulomb interaction of two deformed nuclei with the quadrupole deformation parameters $\beta_i$
   is as follows
   \begin{eqnarray}
-  &&V_{\rm C}(R,Z_i, A_i,\theta_i)=\frac{Z_1 Z_2 e^2}{R}+  \nonumber\\
+  &&V_{\rm C}(R,Z_i, A_i,\theta_i)=\frac{Z_1 Z_2 e^2}{R}  \nonumber\\
   &+& 
   \left(\frac{9}{20 \pi}\right)^{1/2}\frac{Z_1 Z_2 e^2}{R^3}\sum_{i=1,2}R_i^2\beta_i\left[1+\frac{2}{7} \left(\frac{5}{\pi}\right)^{1/2} \beta_i\right] P_2(\cos\theta_i)
   \end{eqnarray}
@@ -339,7 +339,7 @@ of programs previously published in the CPC Program Library.\\
   where
   \begin{eqnarray}
   J_{RR}(t)&=&\frac{2\omega\mu\lambda}{\hbar}
-  \sum_{\nu}^{}|\Gamma_\nu|^2\coth\left[\frac{\hbar\omega_\nu}{2T}\right] \times \nonumber\\
+  \sum_{\nu}^{}|\Gamma_\nu|^2\coth\left[\frac{\hbar\omega_\nu}{2T}\right]  \nonumber\\
 &\times& \int\limits_{0}^{t}
   d\tau^{'}B_{\tau^{'}}  \int\limits_{0}^{t} d\tau^{''}B_{\tau^{''}}
   \cos[\omega_\nu (\tau^{'}-\tau^{''})].
@@ -407,7 +407,7 @@ of programs previously published in the CPC Program Library.\\
   proportional to $\sim e^{s_i t}$.
   In this case the integral Eq.~(\ref{expint}) leads to $\dfrac{e^{2 s_1 t}}{s_1^2+w^2}$ and for large $t$ we obtain
   \begin{eqnarray}
-  \Sigma_{RR}(t)&=& e^{2 s_1 t}\frac{4 \omega \lambda\gamma^2}{\pi \mu}\beta_1^2(s_1+\gamma) \times \nonumber\\
+  \Sigma_{RR}(t)&=& e^{2 s_1 t}\frac{4 \omega \lambda\gamma^2}{\pi \mu}\beta_1^2(s_1+\gamma) \nonumber\\
   &\times& \left[\frac{\pi T}{s_1\gamma}+\frac{1}{s_1-\gamma}
   \left[\psi^{0}\left(1+\frac{s_1}{2\pi T}\right)-\psi^{0}\left(1+\frac{\gamma}{2\pi T}\right)\right]\right],
   \label{sigmaAs}
@@ -521,7 +521,7 @@ mkdir -p R conf
           \begin{center}
               \begin{tabular}{ | l | p{10cm} |}
               \hline
-              -print console   & print to the console the details about the Elements with corresponding weights A1, A2 and charges  Z1, Z2 \\ \hline
+              -print console   & print to the console the details about the elements with corresponding weights A1, A2 and charges  Z1, Z2 \\ \hline
               -print conf      & print all output configurations   \\ \hline
               -o conf.0.txt    & print output configurations to the file conf.0.txt \\ \hline
               -t isotopes.table.txt  & file with the table of isotopes (see above) \\ \hline
@@ -535,7 +535,7 @@ mkdir -p R conf
            \subitem   isotopes.table.txt 
        \item [Description]: The script defines nuclear properties (mass, quadrupole deformation parameters $\beta$, .. ) by charge $Z$ and weight $A$. The information about this is taken from isotopes.table.txt. In our case this table has not all possible elements, so it is possible to complement changing this file.
        \item [Examples] run from \textit{nuclear/bin/} derictory:
-        \subitem For [A=40,Z=20]
+        \subitem For Ca[A=40, Z=20] and Ar[A=40, Z=18] 
     \begin{verbatim}
       ./settings.exe -print console -A1 40 -Z1 20 -A2 40 -Z2 18 \
                      -o ./conf/conf.0.txt  -f INP.DAT -q yes
@@ -581,7 +581,7 @@ Ar[A=38, Z=18] m: -34714.8  beta: 0.163 d: 0.55 beta[2+]: 0.16 ...
       1.150     0.17        -0.10
       CaAr.DAT
     \end{verbatim}  
-    After puttins the file INP.DAT to the folder with fotr.exe script and running this script there will be the output file CaAr.DAT:
+    After puttins the file INP.DAT to the folder with fort.exe script and running this script there will be the output file CaAr.DAT:
     \begin{verbatim}
 42Ca+38Ar                                                                       
    A1  =   42.000000000000000       A2 =    38.000000000000000     
@@ -619,7 +619,7 @@ Ar[A=38, Z=18] m: -34714.8  beta: 0.163 d: 0.55 beta[2+]: 0.16 ...
            
        \item [Description]:
           It reads potential values from CaAr.DAT, and others parameters from conf.0.txt and generates files ./conf/conf.1.txt and ./R/potential.R. 
-          The file conf.1.txt will be the copy of conf.0.txt with potential values. The R code to plot potential will be written too the file ./R/potential.R.
+          The file conf.1.txt will be the copy of conf.0.txt with potential values. The R code to plot potential will be written to the file ./R/potential.R.
           
        \item [Examples]:
     \end{description}
