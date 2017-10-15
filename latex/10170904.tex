@@ -474,17 +474,17 @@ of programs previously published in the CPC Program Library.\\
   $\beta_i$ from the data file incorporated and allows 
   us also to input the user values of $\beta_i$.
 
-\section{Design of the program}
+\section{The program}
 \label{sec:design}
 
-  The program is located in the folder \textit{nuclear}. It has the following structure: 
+  The program is located in the folder \textit{QDA}. It has the following structure: 
   
   \begin{itemize}
     \setlength\itemsep{0em}
-    \item[bin/]    - The program consist of five scripts from this folder: settings.exe, fort.exe, makeplot.exe, kinematics.exe, pcapture.exe. File fort.exe is compiled from files that are in the folder \textit{nuclear/fort}/ Another files are compiled from files with coresponding names in the folder \textit{nuclear/source} (see below the details about how they are compiled). There is a friendly user interface on webpage Ref.~\cite{WebInterface}. 
-    \item[conf/]   - contains config files. One of them is isotopes.table.txt. This file is used to define nuclear properties (mass, quadrupole deformation parameters $\beta$, .. ) by charge $Z$ and weight $A$. Here is its part:
+    \item[QDA/run/]    - The program consist of three scripts from this folder: settings.exe, fort.exe and pcapt.exe. Files \textit{settings.exe} and \textit{pcapt.exe} are compiled from files \textit{QDA/source/settings.cc} and \textit{QDA/source/pcapt.cc}. The file fort.exe is compiled from files \textit{P1.FOR P2.FOR P3.FOR P4.FOR} from the folder \textit{QDA/source/} There is a friendly user interface on webpage Ref.~\cite{WebInterface}. 
+    \item[conf/]   - contains config file isotopes.table.txt. This file is used to define nuclear properties (mass, quadrupole deformation parameters $\beta$, .. ) by charge $Z$ and weight $A$. Here is its part:
 \begin{verbatim}
- Z    A        m   Element   BETA_GS   BETA_2+ E_2+(MeV)
+ Z    A     m(KeV)   Element   BETA_GS   BETA_2+ E_2+(MeV)
  6   10   15698.8       C    -0.350     -0.83     3.354
  6   12       0.0       C    -0.300    -0.582     4.439
 ... ...       ...      ...    ...       ...       ...
@@ -492,62 +492,46 @@ of programs previously published in the CPC Program Library.\\
  8   16    4737.00137   O     0.000     0.364     6.917
 ... ...       ...      ...    ...       ...       ...
 \end{verbatim}
-    \item[fort/]   - contains files for fort.exe: P1.FOR P2.FOR P3.FOR P4.FOR. 
-    \item[lib/]    - contains headers: define.hh, gConf.hh, gFile.hh, gFuns.hh, gMath.hh, nuclear.function.hh, nuclear.parameters.hh, potential.hh, project\_functions.hh
-    \item[R/]      - consist files with R-code: potentialL.R  potential.R  prob.R. Below There are details about how to obtain them and how to operate with them.
-    \item[source/] - settings.cc makeplot.cc  kinematics.cc pcapture.cc.   
+    \item[lib/]    - contains files: \textit{define.hh, gConf.hh, gFile.hh, gFuns.hh, gMath.hh,} \\ \textit{nuclear.function.hh, nuclear.parameters.hh, potential.hh, project\_functions.hh}. These files are included to \textit{settings.cc} and \textit{pcapt.cc}.
+    \item[source/] - contains \textit{settings.cc, pcapt.cc} and \textit{P1.FOR, P2.FOR, P3.FOR, P4.FOR}.   
   \end{itemize}
  
- In the following we describe the details about main script files.
+ In the following we describe the details about settings.exe, pcapt.exe and fort.exe.
+
+
 
   \subsection{settings.exe}
   \label{sec:settings}
 
     \begin{description}
-       \item[Compile]:  from the folder \textit{nuclear/source/}:  
+       \item[Compile]:  from the folder \textit{QDA/source/}:  
         \begin{verbatim}
-g++ makeplot.cc -o ../bin/makeplot.exe
-
+g++ settings.cc -o ../run/settings.exe
         \end{verbatim}
-       \item[Run] from the folder \textit{nuclear/bin}:
+       \item[Run] from the folder \textit{QDA/run/}:
         \begin{verbatim}
-mkdir -p R conf 
-./settings.exe -A1 number -A2 number -Z1 number -Z2 number  \
-              [-print console|conf] [-o ../conf/conf.0.txt] \
-              [-t ../conf/isotopes.table.txt] \
-              [-f ../bin/INP.DAT]
-./settings.exe -h
+./settings.exe -A1 number -A2 number -Z1 number -Z2 number \
+              [-t ../conf/isotopes.table.txt]
         \end{verbatim}
-          \begin{center}
-              \begin{tabular}{ | l | p{10cm} |}
-              \hline
-              -print console   & print to the console the details about the elements with corresponding weights A1, A2 and charges  Z1, Z2 \\ \hline
-              -print conf      & print all output configurations   \\ \hline
-              -o conf.0.txt    & print output configurations to the file conf.0.txt \\ \hline
-              -t isotopes.table.txt  & file with the table of isotopes (see above) \\ \hline
-              -f INP.DAT       & write the file for the potential, built by fort.exe  \\ \hline
-              -h               & print help  \\ \hline
-              -q yes           & if there is option yes for Q 2n channel  \\ \hline
-              \end{tabular}
-          \end{center}   
        \item [Dependencies]:
-           \subitem   project\_functions.hh
-           \subitem   isotopes.table.txt 
-       \item [Description]: The script defines nuclear properties (mass, quadrupole deformation parameters $\beta$, .. ) by charge $Z$ and weight $A$. The information about this is taken from isotopes.table.txt. In our case this table has not all possible elements, so it is possible to complement changing this file.
-       \item [Examples] run from \textit{nuclear/bin/} derictory:
-        \subitem For Ca[A=40, Z=20] and Ar[A=40, Z=18] 
+           \subitem   \textit{define.hh }
+           \subitem   \textit{project\_functions.hh}
+           \subitem   \textit{isotopes.table.txt }
+       \item [Description]: The script defines nuclear properties (mass, quadrupole deformation parameters $\beta$, .. ) by charge $Z$ and weight $A$. The information about this is taken from \textit{isotopes.table.txt}. In our case this table has not all possible elements, so it is possible to complement changing this file. It creates also files: \textit{INP.DAT} that are used for \textit{fort.exe} and \textit{conf.inp.txt} that are used for \textit{pcapt.exe}.  
+       \item [Examples]: run from \textit{QDA/run/} derictory:
+        \subitem For $Ca[A=40, Z=20]$ and $Ar[A=40, Z=18]$: 
     \begin{verbatim}
-      ./settings.exe -print console -A1 40 -Z1 20 -A2 40 -Z2 18 \
-                     -o ./conf/conf.0.txt  -f INP.DAT -q yes
+./settings.exe -print console -A1 40 -Z1 20 -A2 40 -Z2 18 \
+               -t ../conf/isotopes.table.txt
     \end{verbatim}  
-Here is the output:     
+Here is the output to console:     
 \begin{verbatim}
 Ca[A=40, Z=20] m: -34846.4  beta: 0     d: 0.55 beta[2+]: 0.12 ...
 Ar[A=40, Z=18] m: -35039.9  beta: 0.251 d: 0.55 beta[2+]: 0.25 ...
-  Q: 3.37578  MeV E[2+]:   1.525MeV
+  Q2n: 3.37578  MeV E[2+]:   1.525MeV
 Ca[A=42, Z=20] m: -38547.2  beta: 0.247 d: 0.55 beta[2+]: 0.25 ...
 Ar[A=38, Z=18] m: -34714.8  beta: 0.163 d: 0.55 beta[2+]: 0.16 ...
-  Q: -13.4048  MeV  E[2+]:   1.208MeV
+  Q2n: -13.4048  MeV  E[2+]:   1.208MeV
 Ca[A=38, Z=20] m: -22058.5  beta: 0     d: 0.55 beta[2+]: 0.12 ...
 Ar[A=42, Z=18] m: -34423    beta: 0.275 d: 0.55 beta[2+]: 0.27 ...
    Q2n channel found: Q: 3.37578 E[2+]: 1.525
@@ -555,188 +539,162 @@ Ca[A=42, Z=20] m: -38547.2  beta: 0.247 d: 0.55 beta[2+]: 0.25 ...
 Ar[A=38, Z=18] m: -34714.8  beta: 0.163 d: 0.55 beta[2+]: 0.16 ...
 
     \end{verbatim}  
+
+At the end it is proposed to take $Q_{2n}$ channel into account.  
+If we do so the reaction become $42Ca+Ar38$ (weighs: 42, 38; charges: 20, 18; diffuseness 0.55; size charachteristics: - 1.15, 0.17). In this case the file INP.DAT has the following content:
+\begin{verbatim}
+42Ca+38Ar
+42    38     20    18
+0.55    0.55
+1.150     0.17        -0.10
+CaAr.DAT
+\end{verbatim}
+and the file \textit{conf.inp.txt}:
+\begin{verbatim}
+Z1                 20
+Z2                 18
+A1                 40
+A2                 40
+Element1           Ca
+Element2           Ar
+reaction        40Ca+Ar40  
+...
+A1_new             42
+A2_new             38
+...
+reaction_new    42Ca+Ar38  
+is_Q2_channel     yes
+...
+\end{verbatim}
+
+
     \end{description}
+
 
 
   \subsection{fort.exe}
   \label{sec:fort}
-    ./fort.exe    %   # INP.DAT -> CaAr.DAT
+    %   # INP.DAT -> CaAr.DAT
     \begin{description}
-       \item[Compile]:  gfortran P1.FOR P2.FOR P3.FOR P4.FOR -o fort.exe
-       \item[Run]: ./fort.exe
-       
+       \item[Compile]:  from the folder \textit{QDA/source/}:
+        \begin{verbatim}
+gfortran P1.FOR P2.FOR P3.FOR P4.FOR -o ../run/fort.exe
+        \end{verbatim}
+\item[Run]: from the folder \textit{QDA/run}:
+        \begin{verbatim}
+ ./fort.exe
+        \end{verbatim}
        \item [Dependencies]:
            \subitem   INP.DAT (see sample below)
 
        \item [Description]: \\
-           read nuclear properties from INP.DAT \textbf{in the same directory} as where fort.exe runs and generate CaAr.DAT file in this directory.
+           read nuclear properties from INP.DAT and generate CaAr.DAT file in this directory.
            
-    \end{description}
-       Here is the example for 42Ca+Ar38 with weighs 42, 38; charges 20, 18; diffuseness 0.55; size charachteristics - 1.15, 0.17.
-      INP.DAT sample:
-    \begin{verbatim}
-      42Ca+38Ar
-      042.00    038.00     020.00    018.00
-      0.5500111    0.550111
-      1.150     0.17        -0.10
-      CaAr.DAT
-    \end{verbatim}  
-    After puttins the file INP.DAT to the folder with fort.exe script and running this script there will be the output file CaAr.DAT:
+    The file CaAr.DAT has the following content:
     \begin{verbatim}
 42Ca+38Ar                                                                       
-   A1  =   42.000000000000000       A2 =    38.000000000000000     
-   R0  =    1.1499999999999999       RO00 =   0.17000000000000001     
-   R1  =    3.9974254467042085       R2 =    3.8662668278928320     
-   A01  =   0.55001109999999998       A02 =   0.55010999999999999     
+   A1  =   42        A2 =    38      
+   R0  =    1.15        RO00 =   0.17      
+   R1  =    3.997        R2 =    3.866      
+   A01  =   0.55        A02 =    0.55      
 
-   R_z        V_C         V_N          V
+  R(fermi)  V_C(MeV)   V_N(Mev)      V(MeV)
    7.36     70.3962    -28.0677     42.3286
    7.56     68.5376    -33.5095     35.0281
    ...       ...         ...         ...
   12.16     42.6187     -0.3737     42.2449
     \end{verbatim}  
 
-  \subsection{makeplot.exe}
-  \label{sec:makeplot}
-   %   # read potential from CaAr.DAT and write it to ./conf/conf.1.txt
-    \begin{description}
-       \item[Compile]:  g++ makeplot.cc -o makeplot.exe
-       \item[Run]:
-    \begin{verbatim}
-./makeplot.exe -i ./conf/conf.0.txt \
-               -o ./conf/conf.1.txt -r ./R/potential.R
-    \end{verbatim}  
+    \end{description} 
 
-     
-       \item [Dependencies]:
-           \subitem define.hh              ( see folder ./lib/)
-           \subitem gFile.hh               ( see folder ./lib/)
-           \subitem gConf.hh               ( see folder ./lib/)
-           \subitem project\_functions.hh   ( see folder ./lib/)
+\subsection{pcapt.exe}
+\label{sec:pcapt}
 
-           \subitem CaAr.DAT - generated by fort.exe. 
-           \subitem ./conf.0.txt  - generated by settings.exe with flag -o conf.0.txt  
-           
-       \item [Description]:
-          It reads potential values from CaAr.DAT, and others parameters from conf.0.txt and generates files ./conf/conf.1.txt and ./R/potential.R. 
-          The file conf.1.txt will be the copy of conf.0.txt with potential values. The R code to plot potential will be written to the file ./R/potential.R.
-          
-       \item [Examples]:
-    \end{description}
-      conf.1.txt sample:
-    \begin{verbatim}
-      ...
-       R         7.43        7.63        7.83        ...
-       En      48.5101     41.0172      36.656     34.7342  ...
-      ...
-    \end{verbatim}  
-
-
-  \subsection{kinematics.exe}
-  \label{sec:potential}
-
-   %   # read potential continue, find Lmax, ...
-    \begin{description}
-       \item[Compile]:  
-        \begin{verbatim}
-g++ kinematics.cc -std=c++11 -lgsl -lgslcblas -lm \
-                  -o kinematics.exe
-        \end{verbatim}
-       \item[Run]:
-        \begin{verbatim}
-./kinematics.exe -i ./conf/conf.1.txt -o2 ./conf/conf.2.txt \
-                 -o ./conf/conf.potential.txt -r ./R/potentialL.R
-        \end{verbatim}
+\begin{description}
+       \item[Compile]:  from the folder \textit{QDA/source/}:
+\begin{verbatim}
+g++ pcapt.cc -lgmpxx -lgmp -lmpfr -lgsl -lgslcblas \
+             -std=c++11 -o ../run/pcapt.exe
+\end{verbatim}
+\item[Run]: from the folder \textit{QDA/run}:
+\begin{verbatim}
+./pcapt.exe
+\end{verbatim}
         
-       \item [Dependencies]:
-           \subitem   gFile.hh       ( see folder ./lib/)       
-           \subitem   gConf.hh       ( see folder ./lib/)       
-           \subitem   gFuns.hh       ( see folder ./lib/)       
-           \subitem   potential.hh   ( see folder ./lib/)
-           \subitem   ./conf/conf.1.txt
+\item [Dependencies]:
 
-       \item [Description]:
+\subitem \textit{define.hh}
+\subitem \textit{project\_functions.hh}
+\subitem \textit{gFile.hh}
+\subitem \textit{gConf.hh}
+\subitem \textit{gFuns.hh}
+\subitem \textit{gMath.hh}
+\subitem \textit{potential.hh}
+\subitem \textit{nuclear.parameters.hh}
+\subitem \textit{nuclear.function.hh}
+\subitem \textit{conf.inp.txt; }
+\subitem \textit{CaAr.DAT; }
 
-           It reads ./conf/conf.1.txt and find key values for potential, like $L_{max}$, $U_{min}$ (see example and Figure 1) then write to 
-           ./conf/conf.2.txt  and to  ./conf/conf.potential.txt. The R code to plot potential for different $L=0..L_{max}$ will be written too the file ./R/potentialL.R (see Figure 2). 
+\item [Description]:
 
+   It reads data from \textit{conf.inp.txt} and \textit{CaAr.DAT}and creates config files with output data: \textit{conf.out.txt}, \textit{prob.energies.txt }, \textit{conf.potential.txt } and files with R scripts
+   \textit{plot.R }, \textit{prob.R }, \textit{probd.R }, \textit{potential.R }. R scripts are used to make plot on R Ref.~\cite{Rscripts}.  
+The script also prints to the console the key values for potential, like $L_{max}$, $U_{min}$ (see its meaning at Figure 1), Energy spectra and cross section:
 
-
-
-           
-       \item [Examples]:
-    \end{description}
-    conf.2.txt
-    \begin{verbatim}
-    ...
-      Lmax            59
-      xMin       8.14362
-      xBar       10.5539
-      UMin       34.4762
-      UBar       50.0888
-      Esp   42.252    42.752    43.252   ...
-      Ed   45.6627   46.1627   46.6627   ...
-    ...
-    \end{verbatim}  
-    conf.potential.txt
-    \begin{verbatim}
-     L=0  xMin: 8.14 xBar: 10.5 UMin: 34.47 UBar: 50.0 UU: 48.51 41.01 ...
-     L=1  xMin: 8.14 xBar: 10.5 UMin: 34.50 UBar: 50.1 UU: 48.54 41.05 ...
-     L=2  xMin: 8.14 xBar: 10.5 UMin: 34.56 UBar: 50.1 UU: 48.62 41.12 ...
-     .....................
-     L=58 xMin: 8.68 xBar: 9.43 UMin:  84.2 UBar: 84.9 UU: 111.5 100.7 ...
-     L=59 xMin: 8.72 xBar: 9.38 UMin: 85.80 UBar: 86.2 UU: 113.7 102.8 ...
-      RR         7.43      7.63   ...
-      U0      48.5101   41.0172   ...
-      Lmax  59
-    \end{verbatim}  
-
-
-  \subsection{pcapture.exe}
-  \label{sec:pcapture}
-
-    
-
-    \begin{description}
-      
-       \item[Compile]: 
-               \begin{verbatim}
-g++ pcapture.cc -lgmpxx -lgmp -lmpfr -lgsl -lgslcblas -std=c++11 \
-                -o pcapture.exe
+        \begin{verbatim}
+Lmax = 59
+xMin = 8.058
+xBar = 10.56
+UMin = 28.84
+UBar = 45.50
+sigma_d    0.107   0.38   1.028   2.268 ...  811.091  827.728
+Ed        45.66   46.16  46.663  47.162 ...   68.1627  68.662
         \end{verbatim}
-       \item[Run]:
-      \begin{verbatim}
-       ./pcapture.exe -i ./conf/conf.2.txt  -o ./conf/conf.3.txt \
-                      -r ./R/prob.R -e ./conf/prob.energies.txt \
-                      -p ./conf/conf.potential.txt 
-      \end{verbatim}
-
-       \item [Dependencies]:
-           \subitem  gFile.hh                (see ./lib/)       
-           \subitem  gConf.hh                (see ./lib/)       
-           \subitem  gFuns.hh                (see ./lib/)       
-           \subitem  gMath.hh                (see ./lib/)       
-           \subitem  potential.hh            (see ./lib/)           
-           \subitem  nuclear.parameters.hh   (see ./lib/)                       
-           \subitem  nuclear.function.hh     (see ./lib/)                      
-           \subitem  ./conf/conf.potential.txt  - generated by kinematics.exe                  
-           \subitem  ./conf/conf.2.txt   - generated by kinematics.exe
-
-       \item [Description]:
-          It takes all parameters from conf.2.txt, calculates and adds sigma\_sp, pelss and sigma\_d vectors and writes to conf.3.txt.
-          Where sigma\_sp - cross section for the spherical case, pelss - probability for L=0 and sigma\_d - cross section for the deformed case.
-           
-    \end{description}
-    \begin{verbatim}
-     ...
-sigma_sp   0.000664928  0.00122174  0.00226026   ...
-pelss      9.54404e-06  1.7887e-05  3.37617e-05  ...
-sigma_d    0.15987        0.54109   1.43882      ... 
-     ...
-    \end{verbatim}  
 
 
 
+\begin{figure}[h!]
+  \includegraphics[width=\linewidth]{potential565x427.png}
+  \caption{}
+  % \caption{A Potential.}
+  % \label{fig:Potential}
+\end{figure}
+
+\begin{figure}[h!]
+  \includegraphics[width=\linewidth]{prob565x427.png}
+  \caption{}
+  % \caption{A Potential.}
+  % \label{fig:Potential for different L}
+\end{figure}
+
+
+
+
+  \subsection{Summary for run the program}
+  Let us propose all commands step by step for console in Linux system:
+        \begin{verbatim}
+# path where QDA folder is located:
+path='QDA'
+# clean files from previous run (if exists): 
+rm -f $path/run/*
+# compile:
+cd $path$/source; 
+g++ ./settings.cc -o ../run/settings.exe; \
+gfortran P1.FOR P2.FOR P3.FOR P4.FOR \
+                 -o ../run/fort.exe; \
+g++ pcapt.cc -lgmpxx -lgmp -lmpfr -lgsl -lgslcblas \
+             -std=c++11 -o ../run/pcapt.exe ; \
+# run:
+cd $path/run
+./settings.exe  -A1 40 -Z1 20 -A2 40 -Z2 18; 
+./fort.exe;
+./pcapt.exe; 
+# in addition, the following commands run R - scripts for creating graphs:
+R CMD BATCH plot.R ;      
+R CMD BATCH potential.R;  
+R CMD BATCH prob.R ;      
+R CMD BATCH ./probd.R ;   
+        \end{verbatim}
 
 %% References with bibTeX database:
   % \bibliographystyle{elsarticle-num}
@@ -747,6 +705,7 @@ sigma_d    0.15987        0.54109   1.43882      ...
 
 
 %% References without bibTeX database:
+    \end{description} 
 
 
 \begin{thebibliography}{99}
@@ -793,8 +752,11 @@ sigma_d    0.15987        0.54109   1.43882      ...
                       L. Corradi, {\it at al}, ibid. {\bf 84}, 034603 (2011).
   \bibitem{Raman}     S. Raman, C.W. Nestor Jr., and P. Tikkanen, At. Data Nucl. Data Tables {\bf 78}, 1 (2001).
   \bibitem{WebInterface}  http://intel-robot.ru/external/www5
+  \bibitem{Rscripts}  https://www.r-project.org/
 
 \end{thebibliography}
+
+
 
 
 

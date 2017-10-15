@@ -73,11 +73,11 @@ if      ( isset($_POST['button']) and ( $_POST['button'] == "step_00_01" )  ) {
   if(isset($_SESSION['UBar'])) post2sess('UBar_shift',($_SESSION['UBar']-10.0), ($_SESSION['UBar']+10.0));
   header("Location: step3.php");
   die();
-// } elseif( isset($_POST['button']) and ( $_POST['button'] == "shift_down" )  ) {
-//   if(!isset($_SESSION['shift'])) $_SESSION['shift'] = 0;
-//   $_SESSION['shift'] = $_SESSION['shift'] - 0.5;
-//   header("Location: step3.php");
-//   die();
+  // } elseif( isset($_POST['button']) and ( $_POST['button'] == "shift_down" )  ) {
+  //   if(!isset($_SESSION['shift'])) $_SESSION['shift'] = 0;
+  //   $_SESSION['shift'] = $_SESSION['shift'] - 0.5;
+  //   header("Location: step3.php");
+  //   die();
 } elseif( isset($_POST['button']) and ( $_POST['button'] == "reset" )  ) {
   session_destroy();
   header("Location: step0.php");
