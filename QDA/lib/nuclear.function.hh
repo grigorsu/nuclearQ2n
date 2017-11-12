@@ -118,32 +118,32 @@ std::vector <double> nuclear::ffgg_roots(MNParameters &p, std::string option/*="
 double nuclear::PELSS(double Ein, MNParameters &p, MPotential &potential, double * _omega=NULL ) {
         
     double xomega = p.rrbarer.real();
-    double Eomega = potential.eval( potential.xBar + xomega );
-    double Eful = Ein - potential.UBar;
+    double Eomega = potential.eval( potential.RBar + xomega );
+    double Eful = Ein - potential.VBar;
       
 
-      if (Ein <= potential.UMin) {
-          double xE = potential.xMin;
-          double xS = potential::eval_root(potential, Ein,potential.xBar + 1./*,"print"*/);
+      if (Ein <= potential.VMin) {
+          double xE = potential.RMin;
+          double xS = potential::eval_root(potential, Ein,potential.RBar + 1./*,"print"*/);
           double S = potential.u_integrate(Ein, double(p.mu.real()), xE, xS);
-          p.omega = double(p.pi.real())*(potential.eval(potential.xBar)-Ein)/S;
+          p.omega = double(p.pi.real())*(potential.eval(potential.RBar)-Ein)/S;
         
       }else if (Ein <= Eomega) {
-          double xE = potential::eval_root(potential, Ein,potential.xMin + 0.3/*,"print"*/);
-          double xS = potential::eval_root(potential, Ein,potential.xBar + 0.3/*,"print"*/);
+          double xE = potential::eval_root(potential, Ein,potential.RMin + 0.3/*,"print"*/);
+          double xS = potential::eval_root(potential, Ein,potential.RBar + 0.3/*,"print"*/);
           double S = potential.u_integrate(Ein, double(p.mu.real()), xE, xS);
-          p.omega = double(p.pi.real())*(potential.eval(potential.xBar)-Ein)/S;
+          p.omega = double(p.pi.real())*(potential.eval(potential.RBar)-Ein)/S;
       } else if (Ein > Eomega) {
-          if (Eomega > potential.UMin) {
-  	        double xE = potential::eval_root(potential, Eomega,potential.xMin + 0.3/*,"print"*/);
-  	        double xS = potential::eval_root(potential, Eomega,potential.xBar + 0.3/*,"print"*/);
+          if (Eomega > potential.VMin) {
+  	        double xE = potential::eval_root(potential, Eomega,potential.RMin + 0.3/*,"print"*/);
+  	        double xS = potential::eval_root(potential, Eomega,potential.RBar + 0.3/*,"print"*/);
   	        double S = potential.u_integrate(Eomega, double(p.mu.real()), xE, xS);
-  	        p.omega = double(p.pi.real())*(potential.eval(potential.xBar)-Eomega)/S;
+  	        p.omega = double(p.pi.real())*(potential.eval(potential.RBar)-Eomega)/S;
         } else {
-          double xE = potential.xMin;
-	        double xS = potential::eval_root(potential, Eomega,potential.xBar + 1/*,"print"*/); ////////// ---???????????
+          double xE = potential.RMin;
+	        double xS = potential::eval_root(potential, Eomega,potential.RBar + 1/*,"print"*/); ////////// ---???????????
 	        double S = potential.u_integrate(Eomega, double(p.mu.real()), xE, xS);
-	        p.omega = double(p.pi.real())*(potential.eval(potential.xBar)-Eomega)/S;
+	        p.omega = double(p.pi.real())*(potential.eval(potential.RBar)-Eomega)/S;
         }
     } 
     double PP = 0;

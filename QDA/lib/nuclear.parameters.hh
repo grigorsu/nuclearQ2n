@@ -189,9 +189,9 @@ struct DeformProb{
     DeformProb( gConf & conf_param)
     :          Lmax ( atof(conf_param.get("Lmax").c_str())     )
     //            0       1      2       3        4      5        6        7     8       9        10        ...
-    //  L=0     xMin:  9.97271  xBar:  11.4825  UMin:  121.076  UBar:    127.5  UU:    144.348   133.665    ... 
-    ,            Eb (  atof(conf_param.get("UBar" ).c_str())   ) 
-    ,            Rb (  atof(conf_param.get("xBar" ).c_str())   )
+    //  L=0     RMin:  9.97271  RBar:  11.4825  VMin:  121.076  VBar:    127.5  UU:    144.348   133.665    ... 
+    ,            Eb (  atof(conf_param.get("VBar" ).c_str())   ) 
+    ,            Rb (  atof(conf_param.get("RBar" ).c_str())   )
     ,            r0 (  atof(conf_param.get("r0"       ).c_str())   )
     ,         beta1 (  atof(conf_param.get("beta1"    ).c_str())   )
     ,         beta2 (  atof(conf_param.get("beta2"    ).c_str())   )

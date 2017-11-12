@@ -73,7 +73,7 @@ int main(int argc, char** argv) {
       MPotential * ppotential = new MPotential(RR, UU);
       v_ppotential.push_back(  ppotential );
 
-      if(v_ppotential[L]->UBar - v_ppotential[L]->UMin  <= 0.5 && !is_Lmax) {
+      if(v_ppotential[L]->VBar - v_ppotential[L]->VMin  <= 0.5 && !is_Lmax) {
         Lmax = L;
         is_Lmax = 1;
       }
@@ -104,10 +104,10 @@ int main(int argc, char** argv) {
 
     { //change conf
       conf_param.change("Lmax", gFile.format_to_str(Lmax,10) );
-      conf_param.change("xMin", gFile.format_to_str(v_ppotential[0]->xMin,10) );
-      conf_param.change("xBar", gFile.format_to_str(v_ppotential[0]->xBar,10) );
-      conf_param.change("UMin", gFile.format_to_str(v_ppotential[0]->UMin,10) );
-      conf_param.change("UBar", gFile.format_to_str(v_ppotential[0]->UBar,10) );
+      conf_param.change("RMin", gFile.format_to_str(v_ppotential[0]->RMin,10) );
+      conf_param.change("RBar", gFile.format_to_str(v_ppotential[0]->RBar,10) );
+      conf_param.change("VMin", gFile.format_to_str(v_ppotential[0]->VMin,10) );
+      conf_param.change("VBar", gFile.format_to_str(v_ppotential[0]->VBar,10) );
       std::vector <double> Esp(build_energies(*(v_ppotential[0]),  conf_param, "spherical"));
       std::vector <double> Ed( build_energies(*(v_ppotential[0]),  conf_param, "deformed"));
       conf_param.erase("Esp");
@@ -122,10 +122,10 @@ int main(int argc, char** argv) {
     { // write conf.potential.txt
         REP(L,Lmax+1) {
           conf_poten.add( "L=" + gFile.format_to_str(L,4,"left") + " " 
-              + "xMin: "+ gFile.format_to_str(v_ppotential[L]->xMin,7)+"  "
-              + "xBar: "+ gFile.format_to_str(v_ppotential[L]->xBar,7)+"  "
-              + "UMin: "+ gFile.format_to_str(v_ppotential[L]->UMin,7)+"  "
-              + "UBar: "+ gFile.format_to_str(v_ppotential[L]->UBar,7)+"  "
+              + "RMin: "+ gFile.format_to_str(v_ppotential[L]->RMin,7)+"  "
+              + "RBar: "+ gFile.format_to_str(v_ppotential[L]->RBar,7)+"  "
+              + "VMin: "+ gFile.format_to_str(v_ppotential[L]->VMin,7)+"  "
+              + "VBar: "+ gFile.format_to_str(v_ppotential[L]->VBar,7)+"  "
               + "UU:   "+ gFile.vd2s( v_ppotential[L]->UU , "  "   ,7) 
           );
         }
@@ -150,7 +150,7 @@ int main(int argc, char** argv) {
       MNParameters param(conf_args.get("-i"));
       REP(i,10) {
         double omega = param.omega.real();
-        double Ecm = v_potential[0]->UBar + 15. + i*3;
+        double Ecm = v_potential[0]->VBar + 15. + i*3;
         double tmpPELSS = nuclear::PELSS(Ecm, param, *(v_potential[0]),  &omega); 
         conf_param.change("omega", gFile.to_str(omega));  
         if(conf_args.is_present("-debug")) {
@@ -248,9 +248,9 @@ int main(int argc, char** argv) {
     }
 
 
-    std::string message0 = "sigma_d  ";
+    std::string message0 = "sigma_cap mb  ";
     // std::string message1 = "Ed  "; Ed -> Ecm
-    std::string message1 = "Ecm  ";
+    std::string message1 = "Ecm  MeV";
     for(size_t i=0; i < v_SS24.size(); ++i) {
       message0 = message0 + "  " +  gFile.to_str(v_SS24[i]);
     }
@@ -260,15 +260,15 @@ int main(int argc, char** argv) {
 
    
     std::cout << "Lmax = " << conf_param.get("Lmax") << std::endl;
-    std::cout << "xMin = " << conf_param.get("xMin") << std::endl;
-    std::cout << "xBar = " << conf_param.get("xBar") << std::endl;
-    std::cout << "UMin = " << conf_param.get("UMin") << std::endl;
-    std::cout << "UBar = " << conf_param.get("UBar") << std::endl;
+    std::cout << "RMin = " << conf_param.get("RMin") << std::endl;
+    std::cout << "RBar = " << conf_param.get("RBar") << std::endl;
+    std::cout << "VMin = " << conf_param.get("VMin") << std::endl;
+    std::cout << "VBar = " << conf_param.get("VBar") << std::endl;
 
     std::cout << message0  << std::endl;
     std::cout << message1  << std::endl;
 
-    conf_param.erase("sigma_d");
+    conf_param.erase("sigma_cap");
     conf_param.add(message0);
     conf_param.save(conf_args.get("-o"));
 

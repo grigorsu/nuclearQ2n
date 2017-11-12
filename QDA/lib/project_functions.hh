@@ -184,13 +184,13 @@ void nuclear::MElement::print() {
 //   conf.add(  "U0                 nan"                            );
 //     // potential properties:
 //   conf.add(  "Lmax               nan"                            );
-//   conf.add(  "xMin               nan"                            );
-//   conf.add(  "xBar               nan"                            );
-//   conf.add(  "UMin               nan"                            );
-//   conf.add(  "UBar               nan"                            );
+//   conf.add(  "RMin               nan"                            );
+//   conf.add(  "RBar               nan"                            );
+//   conf.add(  "VMin               nan"                            );
+//   conf.add(  "VBar               nan"                            );
   
 //   conf.add(  "sigma_sp           nan"                            );
-//   conf.add(  "sigma_d            nan"                            );
+//   conf.add(  "sigma_cap          nan"                            );
 //   conf.add(  "Esp                nan"                            );
 //   conf.add(  "Ed                 nan"                            );
 //   conf.add(  "pelss              nan"                            );
@@ -265,13 +265,13 @@ gConf nuclear::make_default_conf() {
   conf.add(  "U0                 nan"                            );
     // potential properties:
   conf.add(  "Lmax               nan"                            );
-  conf.add(  "xMin               nan"                            );
-  conf.add(  "xBar               nan"                            );
-  conf.add(  "UMin               nan"                            );
-  conf.add(  "UBar               nan"                            );
+  conf.add(  "RMin               nan"                            );
+  conf.add(  "RBar               nan"                            );
+  conf.add(  "VMin               nan"                            );
+  conf.add(  "VBar               nan"                            );
   
   conf.add(  "sigma_sp           nan"                            );
-  conf.add(  "sigma_d            nan"                            );
+  conf.add(  "sigma_cap          nan"                            );
   conf.add(  "Esp                nan"                            );
   conf.add(  "Ed                 nan"                            );
   conf.add(  "pelss              nan"                            );

@@ -17,10 +17,10 @@
 struct MPotential {
      public:
         const int           size;  // the size of RR and UU
-        double              xMin;
-        double              xBar;  // Barier
-        double              UMin;
-        double              UBar;
+        double              RMin;
+        double              RBar;  // Barier
+        double              VMin;
+        double              VBar;
         std::vector<double> RR;
         std::vector<double> UU;
         double x_range_left;
@@ -39,7 +39,7 @@ struct MPotential {
         double max(double a, double b) { return a > b ? a : b; }
 
 
-        MPotential(std::vector<double> &_RR, const std::vector<double> &_UU ,  double _xMin=-1, double _xBar=-1, double _UMin=-1, double _UBar=-1 )
+        MPotential(std::vector<double> &_RR, const std::vector<double> &_UU ,  double _RMin=-1, double _RBar=-1, double _VMin=-1, double _VBar=-1 )
         : size(_RR.size())
         , acc(gsl_interp_accel_alloc ())
         , spline(gsl_spline_alloc (gsl_interp_cspline, size))
@@ -66,22 +66,22 @@ struct MPotential {
             // for(size_t i=0; i<size; ++i) {cout << " " << x[i];} cout << endl;  
             // for(size_t i=0; i<size; ++i) {cout << " " << y[i];} cout << endl;  
             gsl_spline_init(spline,x,y,size);
-            if(_xMin == -1){
+            if(_RMin == -1){
                 size_t tmp_imin = 1;          for(size_t i=1;          i<size-1; ++i) { if(y[i+1] >= y[i] ) { tmp_imin = i-1  ; break; } }
                 size_t tmp_imax = tmp_imin+1; for(size_t i=tmp_imin+1; i<size-1; ++i) { if(y[tmp_imax] <  y[i] ) tmp_imax = i; }
 
-                xMin = x_min(x[tmp_imin], x[tmp_imax]);
-                xBar = x_max(       xMin, x[size-1] );
-                // xMin = x_min(x[0]  ,x[0]+3);
-                // xBar = x_max(x[0]+2,x[0]+3);
-                UMin = eval(xMin);
-                UBar = eval(xBar);
+                RMin = x_min(x[tmp_imin], x[tmp_imax]);
+                RBar = x_max(       RMin, x[size-1] );
+                // RMin = x_min(x[0]  ,x[0]+3);
+                // RBar = x_max(x[0]+2,x[0]+3);
+                VMin = eval(RMin);
+                VBar = eval(RBar);
 
             } else {
-                xMin =  _xMin;
-                xBar =  _xBar;
-                UMin =  _UMin;
-                UBar =  _UBar;
+                RMin =  _RMin;
+                RBar =  _RBar;
+                VMin =  _VMin;
+                VBar =  _VBar;
             }
 
 
@@ -123,12 +123,12 @@ std::vector <MPotential *>  v_potential_from_file(std::string filename /*="./con
     for(size_t ii = 9; ii < tmp_vs_conf.size(); ++ii) {
       UU.push_back(atof(tmp_vs_conf[ii].c_str()));
     }  
-    double  xMin = atof( tmp_vs_conf[1].c_str() );
-    double  xBar = atof( tmp_vs_conf[3].c_str() );
-    double  UMin = atof( tmp_vs_conf[5].c_str() );
-    double  UBar = atof( tmp_vs_conf[7].c_str() );
-    // MPotential * ppotential = new MPotential(RR, UU,  double  xMin, double  xBar, double  UMin, double  UBar);
-    MPotential * ppotential = new MPotential(RR, UU,  xMin, xBar, UMin, UBar);
+    double  RMin = atof( tmp_vs_conf[1].c_str() );
+    double  RBar = atof( tmp_vs_conf[3].c_str() );
+    double  VMin = atof( tmp_vs_conf[5].c_str() );
+    double  VBar = atof( tmp_vs_conf[7].c_str() );
+    // MPotential * ppotential = new MPotential(RR, UU,  double  RMin, double  RBar, double  VMin, double  VBar);
+    MPotential * ppotential = new MPotential(RR, UU,  RMin, RBar, VMin, VBar);
     v_potential.push_back(  ppotential );
   }
   return v_potential;
@@ -267,8 +267,8 @@ std::vector <double> build_energies( MPotential & potential, const gConf & conf_
   double r0       = atof(conf_param.get("r0"   ).c_str()); 
   double R01      = r0 * pow(A1,1./3.) ;
   double R02      = r0 * pow(A2,1./3.) ;
-  double Eb       = atof(conf_param.get("UBar"     ).c_str());
-  double Rb       = atof(conf_param.get("xBar"     ).c_str());
+  double Eb       = atof(conf_param.get("VBar"     ).c_str());
+  double Rb       = atof(conf_param.get("RBar"     ).c_str());
   double FD1      = 1./std::sqrt(20.*pi)*(Z1*Z2 *e*e*R01)/Rb/Rb*(-5.+(3.*R01*(1.+2./7.*std::sqrt(5./pi)*beta1))/Rb) ;
   double FD2      = 1./std::sqrt(20.*pi)*(Z1*Z2 *e*e*R02)/Rb/Rb*(-5.+(3.*R02*(1.+2./7.*std::sqrt(5./pi)*beta2))/Rb) ;
   double rrS       = atof(conf_param.get("rrS"     ).c_str());
