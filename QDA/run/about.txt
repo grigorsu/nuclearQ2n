@@ -1,0 +1,15 @@
+rm /vagrant/www/www/program/QDA/run/*
+cd /vagrant/www/www/program/QDA/source; g++ ./settings.cc -o ../run/settings.exe; \
+cd /vagrant/www/www/program/QDA/run ; ../run/settings.exe  -A1 40 -Z1 20 -A2 40 -Z2 18 ; cd -; \
+cd /vagrant/www/www/program/QDA/source; gfortran P1.FOR P2.FOR P3.FOR P4.FOR -o ../run/fort.exe; \
+cd /vagrant/www/www/program/QDA/run; ./fort.exe;  cd /vagrant/www/www/program/QDA/source; \
+cd /vagrant/www/www/program/QDA/source;  g++ pcapt.cc -lgmpxx -lgmp -lmpfr -lgsl -lgslcblas -std=c++11 -o ../run/pcapt.exe ; \
+cd /vagrant/www/www/program/QDA/run ; ./pcapt.exe; cd -; \
+cd /vagrant/www/www/program/QDA/run ; R CMD BATCH plot.R ;      cd -;\
+cd /vagrant/www/www/program/QDA/run ; R CMD BATCH potential.R;  cd -;\
+cd /vagrant/www/www/program/QDA/run ; R CMD BATCH prob.R ;      cd -;\
+cd /vagrant/www/www/program/QDA/run ; R CMD BATCH ./probd.R ;      cd -;\
+
+
+
+
