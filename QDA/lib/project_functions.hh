@@ -77,8 +77,27 @@ namespace nuclear {
 
   void write_potential_plot_R(std::string filename, gConf &_conf);
 
+  void check_is_Q2n(gConf &_conf_param);
+
+
 };
 
+//---------------------------------------------------------------------------
+void nuclear::check_is_Q2n(gConf &_conf_param) {
+  if(_conf_param.get("is_Q2_channel") == "yes") {
+    _conf_param.change("A1"      , _conf_param.get("A1_new"      ) );
+    _conf_param.change("A2"      , _conf_param.get("A2_new"      ) );
+    _conf_param.change("m1"      , _conf_param.get("m1_new"      ) );
+    _conf_param.change("m2"      , _conf_param.get("m2_new"      ) );
+    _conf_param.change("beta1"   , _conf_param.get("beta1_new"   ) );
+    _conf_param.change("beta2"   , _conf_param.get("beta2_new"   ) );
+    _conf_param.change("d1"      , _conf_param.get("d1_new"      ) );
+    _conf_param.change("d2"      , _conf_param.get("d2_new"      ) );
+    _conf_param.change("Element1", _conf_param.get("Element1_new") );
+    _conf_param.change("Element2", _conf_param.get("Element2_new") );
+    _conf_param.change("reaction", _conf_param.get("reaction_new") );
+  }
+}
 //---------------------------------------------------------------------------
 void nuclear::write_potential_plot_R(std::string filename, gConf &_conf){
   // to run script from shell, use command, like: R CMD BATCH --no-save --no-restore my_script.R

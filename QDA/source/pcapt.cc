@@ -21,7 +21,6 @@ using namespace std;
 #include <vector>
 
 
-
 int main(int argc, char** argv) {
 
   gConf conf_args(argc, argv);
@@ -38,6 +37,8 @@ int main(int argc, char** argv) {
 
 
   gConf  conf_param( conf_args.get("-i"));
+  nuclear::check_is_Q2n(conf_param);
+  conf_param.save();
   gConf  conf_poten(0); 
   
 
@@ -101,6 +102,8 @@ int main(int argc, char** argv) {
       gFile.write_file(command, conf_args.get("-r"),  "w");
     }
 
+conf_param.change("beta1", " 0.247");
+conf_param.change("beta2", " 0.163");
 
     { //change conf
       conf_param.change("Lmax", gFile.format_to_str(Lmax,10) );
@@ -169,6 +172,7 @@ int main(int argc, char** argv) {
     {
       std::cout << std::endl;
       MNParameters param(conf_args.get("-i"));
+
       std::vector <double> v_Energ (gFuns.vs2vd(conf_param.get_all("Esp"  ) ));
 
       std::vector < double > v_sigma; 
