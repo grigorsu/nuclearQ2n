@@ -86,6 +86,9 @@ C          READ (5,10) SB2,SB2F,SB2Q,SB2FQ
         FIF2=((1.+BET2*DSQRT(5./4./PI))*(1.-BET2*DSQRT(5./16./PI))**2)
      /  **(-0.3333333)
         R01 = R0*(A1**0.333333)*FIF1
+        IF (Z1.EQ.2.) R01 = 1.02*(A1**0.333333)*FIF1
+        IF (Z1.EQ.3.) R01 = 1.06*(A1**0.333333)*FIF1
+        IF (Z1.EQ.4.) R01 = 1.10*(A1**0.333333)*FIF1
         R02 = R0*(A2**0.333333)*FIF2
         AAX1=R01*(1.+BET1*DSQRT(5./4./PI))
         BAX1=R01*(1.-BET1*DSQRT(5./16./PI))
