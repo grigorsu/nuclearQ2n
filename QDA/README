@@ -1,0 +1,52 @@
+
+See chapter 4 - Design of the Program in the paper.
+
+File list:
+./conf/:
+isotopes.table.txt - input data table
+
+./lib/:
+files with additional functions to include:
+define.hh  gConf.hh  gFile.hh  gFuns.hh  gMath.hh  nuclear.function.hh  nuclear.parameters.hh  potential.hh  project_functions.hh
+
+./run/: folder for temprorary input and output files
+
+./source/:
+- files to plot potential:
+  P1.FOR  P2.FOR  P3.FOR  P4.FOR  
+- source to define settings:
+  settings.cc
+- source to calculate capture probability:
+  pcapt.cc  
+
+
+Example, how to compile/run program:
+
+path=./QDA
+cd $path/source
+g++ ./settings.cc -o ../run/settings.exe
+cd $path/run 
+../run/settings.exe  -A1 40 -Z1 20 -A2 40 -Z2 18 
+cd -
+cd $path/source
+gfortran P1.FOR P2.FOR P3.FOR P4.FOR -o ../run/fort.exe
+cd $path/run
+./fort.exe
+cd $path/source
+cd $path/source
+g++ pcapt.cc -lgmpxx -lgmp -lmpfr -lgsl -lgslcblas -std=c++11 -o ../run/pcapt.exe 
+cd $path/run 
+./pcapt.exe -debug
+cd -
+cd $path/run 
+R CMD BATCH plot.R 
+cd -
+cd $path/run 
+R CMD BATCH potential.R
+cd -
+cd $path/run 
+R CMD BATCH prob.R 
+cd -
+cd $path/run 
+R CMD BATCH ./probd.R 
+cd -
